@@ -1,10 +1,11 @@
-import express from "express";
+import { Router } from "express";
 import { body } from "express-validator";
 
 import userController from "../controllers/user-controller";
 import { validateRequest } from "../middlewares/request-validation-middleware";
+import { requireAuth } from "../middlewares/auth-middleware";
 
-const authRouter = express.Router();
+const authRouter = Router();
 
 authRouter.post(
   "/signup",
@@ -45,6 +46,7 @@ authRouter.post(
   validateRequest,
   userController.signin
 );
-authRouter.post("/signout", userController.signout);
+authRouter.post("/signout", requireAuth, userController.signout);
+authRouter.get("/confirm/:id", userController.confirmEmail);
 
 export { authRouter };

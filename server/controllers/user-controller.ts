@@ -1,9 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, query } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { User } from "../models/user-model";
 import { BadRequestError } from "../errors/BadRequestError";
+import { EmailService } from "../services/email/email-service";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 const signup = async (req: Request, res: Response, next: NextFunction) => {
   let { email, username, password } = req.body;
@@ -18,18 +20,34 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
     );
     return;
   }
+
   let hashedPassword = await bcrypt.hash(password, 8);
-  let user = new User({ email, username, password: hashedPassword });
+  let user = new User({
+    email,
+    username,
+    password: hashedPassword,
+    verified: false,
+  });
   await user.save();
 
-  let token = jwt.sign(user.toJSON(), process.env!.JWT_KEY);
+  let tempToken = jwt.sign(user.toJSON(), process.env!.JWT_TEMP_KEY);
+  let emailToken = jwt.sign(user.toJSON(), process.env!.EMAIL_JWT_KEY);
 
-  req.session = { token };
+  new EmailService().sendVerificationMail(
+    user.email,
+    user.username,
+    user.id,
+    emailToken
+  );
 
-  res.send(user);
+  res.cookie("tempJwt", tempToken);
+
+  res.status(201).send(user);
 };
+
 const signin = async (req: Request, res: Response, next: NextFunction) => {
   let { emailOrUsername, password } = req.body;
+
   let user = await User.findOne({
     $or: [{ username: emailOrUsername }, { email: emailOrUsername }],
   });
@@ -44,9 +62,55 @@ const signin = async (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
+  if (user.verified) {
+    let token = jwt.sign(user.toJSON(), process.env!.JWT_KEY);
+    req.session = { jwt: token };
+  } else {
+    let token = jwt.sign(user.toJSON(), process.env!.JWT_TEMP_KEY);
+    res.cookie("tempJwt", token);
+  }
+
   res.send(user);
 };
 
-const signout = (req: Request, res: Response, next: NextFunction) => {};
+const signout = (req: Request, res: Response, next: NextFunction) => {
+  req.session = null;
+  res.send({});
+};
 
-export default { signin, signup, signout };
+const confirmEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let { id } = req.params;
+  let { token } = req.query;
+
+  let user = await User.findById(id);
+  if (!user) {
+    next(new UnauthorizedError());
+    return;
+  }
+
+  try {
+    if (!jwt.verify(token as string, process.env.EMAIL_JWT_KEY)) {
+      next(new UnauthorizedError());
+      return;
+    }
+  } catch (e) {
+    next(new UnauthorizedError());
+    console.log("Server error! " + e);
+    return;
+  }
+
+  user.verified = true;
+  await user.save();
+
+  let token1 = jwt.sign(user.toJSON(), process.env.JWT_KEY);
+
+  req.session = { jwt: token1 };
+
+  res.redirect("http://localhost:3000");
+};
+
+export default { signin, signup, signout, confirmEmail };

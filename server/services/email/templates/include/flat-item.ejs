@@ -1,0 +1,71 @@
+<table style="border: 2px solid #F4F1BB;
+border-radius: 0.375rem;">
+<tbody
+  style="
+    position: relative;
+    border: 2px solid #F4F1BB;
+    border-radius: 0.375rem;
+    background-color: #2A2B2A;
+    color: #F4F1BB;
+    gap: 20px;
+    height: fit-content;
+    max-width: 800px;
+    
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  "
+>
+    <tr style=" border-radius: 5px;   width: 100%;">
+        <img style="width: 100%; height: 100%; object-fit: cover;" src=<%= flat.imageUrl %>></img>
+    </tr>
+    <tr >
+      <td style="padding: 10px;">
+        <table style="width: 100%; color: #F4F1BB;">
+          <tbody>
+            <tr>
+              <td>
+                <div style="font-size: 1rem; font-weight: 600; color: #F4F1BB;">
+                 <a style="color: #91A6FF; text-decoration: none;" href=<%= flat.link %>> <%= flat.name %> </a></div>
+                <div style=" color: #F4F1BB; margin-top: 1px"> <%= flat.city %> </div>
+              </td>
+              <td>
+                <div style="position: absolute; top: 1rem; right: 1rem; border-radius: 0.375rem; background-color: #EA4747; color: #F4F1BB;">
+                  <div  style="font-weight: 700; padding: 0.25rem; padding-left: 0.75rem; padding-right: 0.75rem; padding-bottom: 0.25rem;color: #F4F1BB; width: fit-content; overflow: hidden;
+                  white-space: nowrap;">
+                    <%= flat.price %>€
+                  </div>
+                  <div style="width: 100%; height: 1px;background-color: #2A2B2A;"></div>
+                  <div className="tw-p-1 tw-pt-0 tw-pl-3 tw-pr-3" style="padding: 0.25rem; padding-top: 0px; padding-left: 0.75rem; padding-right: 0.75rem;color: #F4F1BB; width: fit-content; overflow: hidden;
+                  white-space: nowrap;">
+                    120€/m<sup>2</sup>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <table><tbody>
+        <tr style="display: flex; gap: 0.25rem; background-color: #91A6FF; width: fit-content; border-radius: 0.25rem; color: #2A2B2A; margin-top: 5px;" >
+          <td style="padding: 0.25rem;">
+            <div style="color: #2A2B2A;">Kvadratura</div>
+            <div style="color: #2A2B2A;">
+              <%= flat.surface %> m<sup>2</sup>
+            </div>
+          </td>
+          <td style="background-color: #2A2B2A; width: 1px;" ></td>
+          <td style="padding: 0.25rem;">
+            <div style="color: #2A2B2A;">Broj soba</div>
+            <div style="color: #2A2B2A;"> <%= flat.numberOfRooms %> </div>
+          </td>
+          <td style="background-color: #2A2B2A; width: 1px;"></td>
+          <td style="padding: 0.25rem;">
+            <div style="color: #2A2B2A;">Spratnost</div> <div style="color: #2A2B2A;"> <%= flat.floor %> </div>
+          </td>
+        </tr>
+      </tbody></table>
+        <p style="color: #F4F1BB; margin-top: 10px;"> <%= flat.description %> </p>   
+      </td>            
+      </tr>
+  </tbody>
+</table>
