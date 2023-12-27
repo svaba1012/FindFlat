@@ -38,6 +38,7 @@ function CustomInput({
       );
     }
   };
+
   if (!icon) {
     return (
       <>
@@ -54,6 +55,7 @@ function CustomInput({
       </>
     );
   }
+
   return (
     <>
       <label className={labelStyleClasses} htmlFor={id}>
@@ -73,8 +75,6 @@ function CustomInput({
 
         {renderValidationMsg()}
       </div>
-
-      {/* {renderValidationMsg()} */}
     </>
   );
 }

@@ -22,10 +22,14 @@ export const requireAuth = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(req.session?.jwt);
+  console.log("DELIJO");
+
   if (!req.session || !req.session.jwt) {
     next(new UnauthorizedError());
     return;
   }
+  console.log("IDEMOOOOO");
   try {
     let curUser = jwt.verify(
       req.session.jwt,

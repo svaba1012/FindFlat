@@ -10,6 +10,4 @@ let flatRouter = express.Router();
 
 flatRouter.get("/", getFlats);
 
-flatRouter.post("/email-notification", requireAuth, setFlatEmainNotification);
-
 export { flatRouter };

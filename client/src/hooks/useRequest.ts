@@ -9,7 +9,6 @@ export const useRequest = (url: string, method: string) => {
       let res = await axios[method](url, body, {
         withCredentials: true,
       });
-      console.log(res.data);
       return res;
     } catch (err) {
       console.log(err);

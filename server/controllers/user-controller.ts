@@ -110,7 +110,7 @@ const confirmEmail = async (
 
   req.session = { jwt: token1 };
 
-  res.redirect("http://localhost:3000");
+  res.redirect(process.env.FRONTEND_SERVER_URL);
 };
 
 export default { signin, signup, signout, confirmEmail };

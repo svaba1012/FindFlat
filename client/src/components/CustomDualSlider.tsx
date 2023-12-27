@@ -16,17 +16,19 @@ const CustomDualSlider = ({
   setValues,
   label,
 }) => {
+  let decimalPlace = step < 1 ? 1 : 0;
   const renderValues = () => {
-    let maxVal = values[1];
+    let maxVal = values[1].toFixed(decimalPlace);
     if (values[1] == max) {
-      maxVal = <i className="fa-solid fa-infinity"></i>;
+      maxVal = values[1].toFixed(decimalPlace) + "+";
     }
     return (
       <>
-        ({values[0]} - {maxVal} {measureUnit})
+        ({values[0].toFixed(decimalPlace)} - {maxVal} {measureUnit})
       </>
     );
   };
+
   return (
     <div className="tw-mt-2 tw-mb-8">
       <label className="form-label tw-mb-0" htmlFor={id}>
@@ -121,7 +123,7 @@ const CustomDualSlider = ({
                 }}
                 className="tw-bg-primary tw-w-fit tw-whitespace-nowrap"
               >
-                {`${values[index]} ${measureUnit}`}
+                {`${values[index].toFixed(decimalPlace)} ${measureUnit}`}
               </div>
               <div
                 style={{

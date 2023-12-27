@@ -14,7 +14,10 @@ function SigninForm(props) {
     formState: { errors },
   } = useForm();
 
-  let reqHook = useRequest("http://localhost:4000/api/users/signin", "post");
+  let reqHook = useRequest(
+    process.env.NEXT_PUBLIC_SERVER_URL + "/api/users/signin",
+    "post"
+  );
   let router = useRouter();
 
   const onSubmit = async (submitData) => {

@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import { authRouter } from "./routes/auth-routes";
 import { errorHandler } from "./middlewares/error-handler";
 import { flatRouter } from "./routes/flat-routes";
+import { notificationRouter } from "./routes/notification-routes";
 
 dotenv.config();
 declare global {
@@ -17,6 +18,7 @@ declare global {
       JWT_TEMP_KEY: string;
       EMAIL_JWT_KEY: string;
       DATABASE_URL: string;
+      FRONTEND_SERVER_URL: string;
       EMAIL_PASS: string;
       EMAIL_ADDRESS: string;
       // add more environment variables and their types here
@@ -29,7 +31,7 @@ const app = express();
 app.set("trust proxy", 1); // trust first proxy
 
 app.use(bodyParser.json());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: process.env.FRONTEND_SERVER_URL }));
 app.use(
   cookieSession({
     name: "session",
@@ -41,6 +43,7 @@ app.use(
 
 app.use("/api/users", authRouter);
 app.use("/api/flats", flatRouter);
+app.use("/api/notifications", notificationRouter);
 
 app.use(errorHandler);
 

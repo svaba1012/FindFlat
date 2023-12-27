@@ -14,7 +14,8 @@ export type WebFlatQuery = WebQuery & {
   surface_min?: number;
   surface_max?: number;
   surfaceUnit?: string;
-  numberOfRooms?: number;
+  numberOfRoomsMin?: number;
+  numberOfRoomsMax?: number;
   sellOrRent?: string;
   sortDescending?: boolean;
   sortCriteria?: string;

@@ -16,7 +16,7 @@ function SignupForm(props) {
     formState: { errors },
   } = useForm();
 
-  let req = useRequest("http://localhost:4000/api/users/signup", "post");
+  let req = useRequest(process.env.NEXT_PUBLIC_SERVER_URL + "/api/users/signup", "post");
   let router = useRouter();
 
   const onSubmit = async (formData) => {
