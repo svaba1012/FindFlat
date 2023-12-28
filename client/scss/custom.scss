@@ -1,0 +1,13 @@
+@import "../node_modules/bootstrap/scss/functions";
+
+// Default variable overrides
+$primary: #ea4747;
+
+$theme-colors: (
+  "primary": $primary,
+);
+
+// Required
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/bootstrap";

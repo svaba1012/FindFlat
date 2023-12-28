@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-select-option:focus {
+  background-color: #ea4747 !important;
+  color: white !important;
+}

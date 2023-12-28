@@ -32,7 +32,7 @@ function CustomDropdown({
         {/* <option selected>{selectLabel}</option> */}
         {data.map((el, i) => {
           return (
-            <option value={el} key={i}>
+            <option className="custom-select-option" value={el} key={i}>
               {el}
             </option>
           );

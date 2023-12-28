@@ -2,6 +2,10 @@ import React from "react";
 
 import { RootProvider } from "../src/context/RootProvider";
 
+import "scss/css/custom_bootstrap.css";
+
+import "node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
 import "./globals.css";
 
 export default function RootLayout({
@@ -14,12 +18,18 @@ export default function RootLayout({
       <head>
         <title>FindFlat</title>
 
-        <link
+        {/* <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossOrigin="anonymous"
-        ></link>
+        ></link> */}
+
+        {/* <link
+          rel="stylesheet"
+          href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+        /> */}
+
         <link
           rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"
@@ -29,10 +39,6 @@ export default function RootLayout({
           href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
         />
 
-        <script
-          src="https://kit.fontawesome.com/7867ac1278.js"
-          crossOrigin="anonymous"
-        ></script>
         <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -49,7 +55,7 @@ export default function RootLayout({
             <div className="container ">
               <a className="navbar-brand" href="/">
                 <h2>
-                  FindFlat <i className="fa-solid fa-building"></i>
+                  FindFlat <i className="bi bi-buildings-fill"></i>{" "}
                 </h2>
               </a>
               <button
@@ -75,7 +81,7 @@ export default function RootLayout({
                       href="/notifications"
                     >
                       <h5 className="tw-mt-0 tw-mb-0">
-                        Notifications <i className="fa-solid fa-bell"></i>
+                        Notifications <i className="bi bi-bell-fill"></i>
                       </h5>
                     </a>
                   </li>
@@ -88,14 +94,14 @@ export default function RootLayout({
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <i className="fa-solid fa-gear"></i>{" "}
+                    <i className="bi bi-gear-fill"></i>{" "}
                   </button>
                   <ul className="dropdown-menu dropdown-menu-end">
                     <li>
                       <a className="dropdown-item" href="#">
                         Signout{" "}
                         <div className=" tw-float-right">
-                          <i className="fa-solid fa-arrow-right-from-bracket "></i>
+                          <i className="bi bi-box-arrow-right"></i>
                         </div>
                       </a>
                     </li>
